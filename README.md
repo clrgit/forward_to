@@ -1,8 +1,8 @@
 # ForwardTo
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/forward_to`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+ForwardTo provides a #forward_to method that can be used to forward methods to
+a member object. It resembels the rails #delegate method but with a different
+syntax
 
 ## Installation
 
@@ -22,14 +22,30 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You will typically include the ForwardTo module globally to have #forward_to
+available everywhere:
 
-## Development
+    require 'forward_to'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+    include ForwardTo
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    class A
+      forward_to :@implementation, :size, :[], :[]=
+      def initialize() @implementation = [] end
+    end
+
+The first argument to #forward_to is the target object. It can be a member
+method or an instance variable but in both cases it has to be specified as a
+Symbol. The rest of the arguments are names of the member methods (Symbol) that
+will be forwarded to the target. Using the definitions above it is possible to
+do
+
+    a = A.new
+    puts a.size # => 0
+
+    a[0] = 1
+    puts a[0] # => 1
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/forward_to.
+Bug reports and pull requests are welcome on GitHub at https://github.com/clrgit/forward_to.
