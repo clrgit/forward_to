@@ -3,8 +3,6 @@
 require_relative "forward_to/version"
 
 module ForwardTo
-  class Error < StandardError; end
-
   # Forward methods to member object. The arguments should be strings or symbols
   #
   # Forward to takes the first argument and creates methods for the rest of the
