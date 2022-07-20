@@ -11,7 +11,6 @@ Gem::Specification.new do |spec|
   spec.summary       = "Simple forwarding of methods"
   spec.description   = "Simple forwarding of methods"
   spec.homepage      = "https://github.com/clrgit/forward_to"
-  spec.required_ruby_version = ">= 2.4.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/clrgit/forward_to.git"
