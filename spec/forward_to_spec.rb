@@ -7,17 +7,24 @@ describe "ForwardTo" do
   end
 
   describe "ForwardTo::ForwardTo" do
+    refklass = Class.new do
+      def var() @value end
+      def var=(value) @value = value end
+      def initialize()
+        @value = "value"
+      end
+    end
+
     klass = Class.new do
-#     attr_accessor :var
-#     forward_to :@value, :var, :var=
+      forward_to :@ref, :var, :var=
       forward_to :@array, :size, :+, :[], :[]=
-      def initialize() 
-        @var = "val"
+      def initialize(refklass) 
+        @ref = refklass
         @array = [1, 2, 3] 
       end
     end
 
-    let(:a) { klass.new }
+    let(:a) { klass.new(refklass.new) }
 
     context "when included" do
       it "creates a #forward_to method on Kernel" do
@@ -36,11 +43,11 @@ describe "ForwardTo" do
         expect(a[0] += 10).to eq 12
         expect(a[0]).to eq 12
       end
-#     it "handles #<name>=" do
-#       expect(a.var).to eq "val"
-#       expect { a.var = "VAL" }.not_to raise_error
-#       expect(a.var).to eq "VAL"
-#     end
+      it "handles #=" do
+        expect(a.var).to eq "value"
+        expect { a.var = "VALUE" }.not_to raise_error
+        expect(a.var).to eq "VALUE"
+      end
       it "handles block arguments"
     end
   end
