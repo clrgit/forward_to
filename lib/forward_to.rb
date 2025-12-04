@@ -39,7 +39,7 @@ module ForwardTo
     end
   end
 
-  # List #forward_to but also an attr reader method for the member object:
+  # Like #forward_to but also an attr reader method for the member object:
   #
   #   include ForwardTo
   #
