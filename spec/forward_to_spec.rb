@@ -7,6 +7,7 @@ describe "ForwardTo" do
   end
 
   describe "#forward_to" do
+    # The target class
     refklass = Class.new do
       def var() @value end
       def var=(value) @value = value end
@@ -15,6 +16,7 @@ describe "ForwardTo" do
       end
     end
 
+    # The user class
     klass = Class.new do
       forward_to :@ref, :var, :var=
       forward_to :@array, :size, :+, :[], :[]=
