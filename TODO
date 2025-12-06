@@ -1,6 +1,12 @@
 
-o Find a way to forward to class methods
+o Forbid String arguments. Strings make any Ruby expression legal with is not
+  what we wan't
+
++ Find a way to forward to class methods
     forward_to_class Module, :module_f
     forward_to_class_method :class_method, :class_method_f
+
+    forward_to_class Prick, :settings
+    forward_to_class :settings, :super_conn, :user_conn, :conn
 
 
